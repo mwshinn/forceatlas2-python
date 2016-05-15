@@ -1,0 +1,72 @@
+ForceAtlas2 for Python
+======================
+
+This is a port of Gephi's ForceAtlas2 layout algorithm to Python 2 and
+Python 3 (with a wrapper for NetworkX).
+
+Installation
+~~~~~~~~~~~~
+
+The only strict dependency is Numpy.  Cython is highly recommended, as
+it will speed it up by a factor of 10-100, depending on the graph.
+Both can be installed with:
+
+    pip install numpy
+    pip install cython
+
+To use the NetworkX wrapper function, you obviously need NetworkX.
+
+Then to install this package, it is the typical:
+
+    python setup.py install
+
+
+Example usage
+~~~~~~~~~~~~~
+
+Two core functions are defined: 
+
+- `forceatlas2.forceatlas2` takes an adjacency matrix and optionally
+  initial positions and other optional arguments.  It uses this to
+  calculate a layout.
+
+- `forceatlas2.forceatlas2_networkx_layout` takes a NetworkX graph and
+  returns a NetworkX-compatible layout.
+
+To use within NetworkX:
+
+    import matplotlib.pyplot as plt
+    import networkx
+    import random
+    import forceatlas2
+    G = networkx.karate_club_graph()
+    pos = { i : (random.random(), random.random()) for i in G.nodes()} # Optionally specify positions as a dictionary
+    l = forceatlas2.forceatlas2_networkx_layout(G, pos, niter=1000) # Optionally specify iteration count
+    networkx.draw_networkx(G, l)
+    plt.show()
+
+Note that my coding style is non-Pythonic, as I don't use function
+docstrings.  You will have to take a look at the function definition
+in `forceatlas2.py` to see a description of all of the potential
+arguments.
+
+Copyright
+~~~~~~~~~
+
+These files are Copyright 2016 Max Shinn <mws41@cam.ac.uk> and
+available under the GNU GPLv3.  They are heavily based on the java
+files included in Gephi, revision git revision 1fba8c1.  The (not so
+clear?) copyright information included in the files I this module is
+based on are:
+
+    Copyright 2008-2011 Gephi
+    Authors : Mathieu Jacomy <mathieu.jacomy@gmail.com>
+    Website : http://www.gephi.org
+    Copyright 2011 Gephi Consortium. All rights reserved.
+    Portions Copyrighted 2011 Gephi Consortium.
+
+    The contents of this file are subject to the terms of either the
+    GNU General Public License Version 3 only ("GPL") or the Common
+    Development and Distribution License("CDDL") (collectively, the
+    "License"). You may not use this file except in compliance with
+    the License.
