@@ -96,7 +96,7 @@ def forceatlas2(
     nodes = []
     for i in range(0, G.shape[0]):
         n = fa2util.Node()
-        n.mass = 1 + numpy.sum(G[i])
+        n.mass = 1 + numpy.count_nonzero(G[i])
         n.old_dx = 0
         n.old_dy = 0
         n.dx = 0
